@@ -5,6 +5,59 @@
     <title>Sphere Calculations</title>	
 	<link rel="stylesheet" href="css/styles.css">	
 	<script>
+        "use strict";
+        window.onload = init;
+        function init() {
+            document.getElementById
+            ("shapeForm").onsubmit = calculate;
+        }
+        //Calculates volume and area
+        function calculate() {
+            var volume;     //output
+            var area;       //output
+            //Inputs:
+            var radius = document.getElementById("radius");
+
+            //Make sure that:
+            //1. The referenced item exists
+            if (radius) {
+                //2. Each referenced object has a valid value
+                if (isNaN(radius.value) ||
+                        (parseFloat(radius.value) <= 0))
+                {
+                    radius.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
+
+                //Do the calculations:
+                volume =
+                        (4/3)*
+                        Math.PI *
+                        Math.pow(radius.value, 3);
+                area =
+                        (4 *
+                                Math.PI *
+                                Math.pow(radius.value, 2))  ;
+
+                volume = volume.toFixed(4);
+                area = area.toFixed(4);
+                //Output results
+                document.getElementById("volume").value = volume;
+                document.getElementById("area").value = area;
+            } //end if radius/height
+            //Prevent form submission:
+            return false;
+            //All functionality is on
+            //client side only, no need
+            //to submit data to server
+        }//end calculate function
+        //Clears input and output from boxes
+        function formClear() {
+            document.getElementById("radius").value = "0";
+            document.getElementById("volume").value = "";
+            document.getElementById("area").value = "";
+        } //end formClear
 	</script>
 </head>
 <body>

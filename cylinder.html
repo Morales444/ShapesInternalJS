@@ -2,23 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cylinder Calculations</title>	
-	<link rel="stylesheet" href="css/styles.css">
-	<script>
-	</script>
+    <title>Cylinder Calculations</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        "use strict";
+        window.onload = init;
+        function init() {
+            document.getElementById
+            ("shapeForm").onsubmit = calculate;
+        }
+        //Calculates volume and area
+        function calculate() {
+            var volume;     //output
+            var area;       //output
+            //Inputs:
+            var radius = document.getElementById("radius");
+            var height = document.getElementById("height");
+            //Make sure that:
+            //1. The referenced item exists
+            if (radius && height) {
+                //2. Each referenced object has a valid value
+                if (isNaN(radius.value) ||
+                        (parseFloat(radius.value) <= 0))
+                {
+                    radius.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
+                if (isNaN(height.value) ||
+                        (parseFloat(height.value) <= 0))
+                {
+                    height.value = "Enter # > 0";
+                    //Exit the function
+                    return false;
+                }
+                //Do the calculations:
+                volume =
+                        Math.PI *
+                        Math.pow(radius.value, 2) *
+                        height.value;
+                area =
+                        (
+                                2 *
+                                Math.PI *
+                                Math.pow(radius.value, 2)
+                        ) +
+                        (
+                                2 *
+                                Math.PI *
+                                radius.value *
+                                height.value
+                        );
+                volume = volume.toFixed(4);
+                area = area.toFixed(4);
+                //Output results
+                document.getElementById("volume").value = volume;
+                document.getElementById("area").value = area;
+            } //end if radius/height
+            //Prevent form submission:
+            return false;
+            //All functionality is on
+            //client side only, no need
+            //to submit data to server
+        }//end calculate function
+        //Clears input and output from boxes
+        function formClear() {
+            document.getElementById("radius").value = "0";
+            document.getElementById("height").value = "0";
+            document.getElementById("volume").value = "";
+            document.getElementById("area").value = "";
+        } //end formClear
+    </script>
 </head>
 <body>
-	<h2>3-D Shape Calculator</h2>
-	<h3>Enter details below to calculate metrics:</h3>
+<h2>3-D Shape Calculator</h2>
+<h3>Enter details below to calculate metrics:</h3>
 
-	<section>
-	<form method="get"
+<section>
+    <form method="get"
           id="shapeForm">
-		<ul id="navlist">
-			<li><a href="sphere.html"><img src="img/PurpleSphere.jpg" class="shape"></a></li>
-			<li><a href="cylinder.html"><img src="img/PurpleCylinder.gif" class="shape"></a></li>
-			<li><a href="cone.html"><img src="img/PurpleCone.jpg" class="shape"></a></li>
-		</ul>
+        <ul id="navlist">
+            <li><a href="sphere.html"><img src="img/PurpleSphere.jpg" class="shape"></a></li>
+            <li><a href="cylinder.html"><img src="img/PurpleCylinder.gif" class="shape"></a></li>
+            <li><a href="cone.html"><img src="img/PurpleCone.jpg" class="shape"></a></li>
+        </ul>
         <fieldset>
             <h3>Cylinders:</h3>
             <table>
@@ -27,7 +94,7 @@
                     <td><input type="text"
                                id="radius"
                                name="radius"
-                                required>
+                               required>
                     </td>
                 </tr>
                 <tr>
@@ -46,9 +113,9 @@
                                class="readonly"
                                readonly>
                     </td>
-					<td>
-						V&nbsp;=&nbsp;&Pi;&nbsp;r<sup>2</sup>&nbsp;h
-					</td>
+                    <td>
+                        V = π r<sup>2</sup> h
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="area">Surface Area:</label></td>
@@ -56,20 +123,10 @@
                                id="area"
                                name="area"
                                class="readonly"
-							   readonly>
+                               readonly>
                     </td>
-					<td>
-						A&nbsp;=&nbsp;2&nbsp;&Pi;&nbsp;r<sup>2</sup>&nbsp;+&nbsp;2&nbsp;&Pi;&nbsp;r&nbsp;h
-					</td>
-                </tr>
-                <tr>
-                    <td></td>
                     <td>
-                        <input  type="submit"
-                                class="sbmt"
-								id="cylSubmit"
-                                value="Calculate";
-								>
+                        A = 2 π r<sup>2</sup>+ 2 π r h
                     </td>
                 </tr>
                 <tr>
@@ -77,15 +134,25 @@
                     <td>
                         <input  type="submit"
                                 class="sbmt"
-                                id="sphereClear"
+                                id="submit"
+                                value="Calculate"
+                        >
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input  type="button"
+                                class="sbmt"
+                                id="clear"
                                 value="Clear"
-								onclick="formClear();";
-								>
+                                onclick="formClear()"
+                        >
                     </td>
                 </tr>
             </table>
         </fieldset>
-    </form>	
-	</section>
+    </form>
+</section>
 </body>
 </html>
